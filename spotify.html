@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spotify Dashboard Test</title>
+
+<style>
+body {
+    margin:0;
+    min-height:100vh;
+    background:#0e1012;
+    color:#f2f2ef;
+    font-family:Arial,Helvetica,sans-serif;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.player {
+    width:600px;
+    padding:30px;
+}
+
+.heading {
+    font-size:13px;
+    letter-spacing:3px;
+    color:#777d81;
+    margin-bottom:20px;
+}
+
+.login {
+    border:1px solid #555;
+    background:none;
+    color:white;
+    padding:12px 20px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.spotify {
+    display:none;
+}
+
+.main {
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.cover {
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    background:#222;
+}
+
+.info {
+    flex:1;
+    min-width:0;
+}
+
+.title {
+    font-size:28px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.artist {
+    margin-top:8px;
+    font-size:18px;
+    color:#92979a;
+}
+
+.device {
+    margin-top:8px;
+    font-size:12px;
+    color:#5f6569;
+}
+
+.progress {
+    height:3px;
+    background:#33383b;
+    margin-top:25px;
+}
+
+.progress-fill {
+    height:100%;
+    width:0;
+    background:#e5e5e2;
+}
+
+.times {
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:#747a7e;
+    margin-top:6px;
+}
+
+.controls {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:38px;
+    margin-top:25px;
+}
+
+.control {
+    border:0;
+    background:none;
+    color:#e5e5e2;
+    font-size:32px;
+    cursor:pointer;
+}
+
+.play {
+    font-size:42px;
+}
+
+.status {
+    text-align:center;
+    color:#777d81;
+    margin-top:20px;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+
+<div class="heading">
+SPOTIFY
+</div>
+
+<div id="loginArea">
+<button class="login" onclick="spotifyLogin()">
+Spotify verbinden
+</button>
+</div>
+
+<div id="spotifyPlayer" class="spotify">
+
+<div class="main">
+
+<img id="cover" class="cover">
+
+<div class="info">
+
+<div id="track" class="title">
+–
+</div>
+
+<div id="artist" class="artist">
+–
+</div>
+
+<div id="device" class="device">
+–
+</div>
+
+</div>
+
+</div>
+
+<div class="progress">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+
+<div class="times">
+
+<span id="currentTime">
+0:00
+</span>
+
+<span id="duration">
+0:00
+</span>
+
+</div>
+
+<div class="controls">
+
+<button class="control"
+        onclick="spotifyCommand('previous')">
+‹
+</button>
+
+<button id="playButton"
+        class="control play"
+        onclick="togglePlayback()">
+▶
+</button>
+
+<button class="control"
+        onclick="spotifyCommand('next')">
+›
+</button>
+
+</div>
+
+</div>
+
+<div id="status" class="status"></div>
+
+</div>
+
+
+<script>
+
+/* ========================================
+   SPOTIFY CONFIG
+======================================== */
+
+var CLIENT_ID =
+"39ba0b76b7364bd1af1a5a5a80917066";
+
+var REDIRECT_URI =
+"https://2m25wtws5p-bot.github.io/dashboard/";
+
+var SCOPES =
+"user-read-playback-state "+
+"user-read-currently-playing "+
+"user-modify-playback-state";
+
+var isPlaying=false;
+
+
+/* ========================================
+   PKCE
+======================================== */
+
+function randomString(length){
+
+    var possible=
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
+    "abcdefghijklmnopqrstuvwxyz"+
+    "0123456789";
+
+    var text="";
+
+    var values=
+    new Uint8Array(length);
+
+    window.crypto.getRandomValues(values);
+
+    for(var i=0;i<length;i++){
+
+        text+=
+        possible.charAt(
+            values[i]%possible.length
+        );
+    }
+
+    return text;
+}
+
+
+function base64urlencode(buffer){
+
+    var bytes=
+    new Uint8Array(buffer);
+
+    var binary="";
+
+    for(var i=0;i<bytes.byteLength;i++){
+        binary+=
+        String.fromCharCode(bytes[i]);
+    }
+
+    return btoa(binary)
+        .replace(/\+/g,"-")
+        .replace(/\//g,"_")
+        .replace(/=+$/,"");
+}
+
+
+function createChallenge(verifier){
+
+    var data=
+    new TextEncoder()
+    .encode(verifier);
+
+    return crypto.subtle
+        .digest("SHA-256",data)
+        .then(function(digest){
+            return base64urlencode(digest);
+        });
+}
+
+
+/* ========================================
+   LOGIN
+======================================== */
+
+function spotifyLogin(){
+
+    var verifier=
+        randomString(64);
+
+    var state=
+        randomString(24);
+
+    localStorage.setItem(
+        "spotify_verifier",
+        verifier
+    );
+
+    localStorage.setItem(
+        "spotify_state",
+        state
+    );
+
+    createChallenge(verifier)
+    .then(function(challenge){
+
+        var params=[];
+
+        params.push(
+            "client_id="+
+            encodeURIComponent(CLIENT_ID)
+        );
+
+        params.push(
+            "response_type=code"
+        );
+
+        params.push(
+            "redirect_uri="+
+            encodeURIComponent(REDIRECT_URI)
+        );
+
+        params.push(
+            "scope="+
+            encodeURIComponent(SCOPES)
+        );
+
+        params.push(
+            "code_challenge_method=S256"
+        );
+
+        params.push(
+            "code_challenge="+
+            encodeURIComponent(challenge)
+        );
+
+        params.push(
+            "state="+
+            encodeURIComponent(state)
+        );
+
+        window.location.href=
+            "https://accounts.spotify.com/authorize?"+
+            params.join("&");
+    });
+}
+
+
+/* ========================================
+   CALLBACK
+======================================== */
+
+function handleCallback(){
+
+    var params=
+        new URLSearchParams(
+            window.location.search
+        );
+
+    var code=
+        params.get("code");
+
+    if(!code)
+        return Promise.resolve(false);
+
+    var receivedState=
+        params.get("state");
+
+    var expectedState=
+        localStorage.getItem(
+            "spotify_state"
+        );
+
+    if(
+        expectedState &&
+        receivedState!==expectedState
+    ){
+
+        document.getElementById(
+            "status"
+        ).textContent=
+        "Spotify-Anmeldung ungültig.";
+
+        return Promise.resolve(false);
+    }
+
+    var verifier=
+        localStorage.getItem(
+            "spotify_verifier"
+        );
+
+    var body=
+        "client_id="+
+        encodeURIComponent(CLIENT_ID)+
+
+        "&grant_type=authorization_code"+
+
+        "&code="+
+        encodeURIComponent(code)+
+
+        "&redirect_uri="+
+        encodeURIComponent(REDIRECT_URI)+
+
+        "&code_verifier="+
+        encodeURIComponent(verifier);
+
+    return fetch(
+        "https://accounts.spotify.com/api/token",
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/x-www-form-urlencoded"
+            },
+
+            body:body
+        }
+    )
+
+    .then(function(response){
+
+        if(!response.ok)
+            throw new Error(
+                "Token konnte nicht geladen werden"
+            );
+
+        return response.json();
+    })
+
+    .then(function(data){
+
+        saveTokens(data);
+
+        /*
+        Callback-Parameter entfernen
+        */
+
+        window.history.replaceState(
+            {},
+            document.title,
+            REDIRECT_URI
+        );
+
+        return true;
+    })
+
+    .catch(function(error){
+
+        document.getElementById(
+            "status"
+        ).textContent=
+        "Spotify Login fehlgeschlagen.";
+
+        return false;
+    });
+}
+
+
+/* ========================================
+   TOKEN SPEICHERN
+======================================== */
+
+function saveTokens(data){
+
+    if(data.access_token){
+
+        localStorage.setItem(
+            "spotify_access_token",
+            data.access_token
+        );
+
+        localStorage.setItem(
+            "spotify_token_expiry",
+            Date.now()+
+            (data.expires_in*1000)
+        );
+    }
+
+    if(data.refresh_token){
+
+        localStorage.setItem(
+            "spotify_refresh_token",
+            data.refresh_token
+        );
+    }
+}
+
+
+/* ========================================
+   TOKEN REFRESH
+======================================== */
+
+function refreshToken(){
+
+    var refresh=
+        localStorage.getItem(
+            "spotify_refresh_token"
+        );
+
+    if(!refresh)
+        return Promise.reject();
+
+    var body=
+        "grant_type=refresh_token"+
+        "&refresh_token="+
+        encodeURIComponent(refresh)+
+        "&client_id="+
+        encodeURIComponent(CLIENT_ID);
+
+    return fetch(
+        "https://accounts.spotify.com/api/token",
+        {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/x-www-form-urlencoded"
+            },
+
+            body:body
+        }
+    )
+
+    .then(function(response){
+
+        if(!response.ok)
+            throw new Error(
+                "Refresh fehlgeschlagen"
+            );
+
+        return response.json();
+    })
+
+    .then(function(data){
+
+        saveTokens(data);
+
+        return data.access_token;
+    });
+}
+
+
+function getToken(){
+
+    var token=
+        localStorage.getItem(
+            "spotify_access_token"
+        );
+
+    var expiry=
+        parseInt(
+            localStorage.getItem(
+                "spotify_token_expiry"
+            ) || "0"
+        );
+
+    /*
+    60 Sekunden Sicherheitspuffer
+    */
+
+    if(
+        token &&
+        Date.now() <
+        expiry-60000
+    ){
+
+        return Promise.resolve(token);
+    }
+
+    return refreshToken();
+}
+
+
+/* ========================================
+   API
+======================================== */
+
+function spotifyAPI(
+    endpoint,
+    method
+){
+
+    return getToken()
+
+    .then(function(token){
+
+        return fetch(
+            "https://api.spotify.com/v1"+
+            endpoint,
+            {
+
+                method:
+                method || "GET",
+
+                headers:{
+                    "Authorization":
+                    "Bearer "+token
+                }
+
+            }
+        );
+    });
+}
+
+
+/* ========================================
+   PLAYER LADEN
+======================================== */
+
+function loadSpotify(){
+
+    if(
+        !localStorage.getItem(
+            "spotify_access_token"
+        )
+    ){
+
+        return;
+    }
+
+    spotifyAPI(
+        "/me/player",
+        "GET"
+    )
+
+    .then(function(response){
+
+        if(response.status===204){
+
+            document.getElementById(
+                "status"
+            ).textContent=
+            "Momentan keine aktive Wiedergabe";
+
+            return null;
+        }
+
+        if(!response.ok)
+            throw new Error();
+
+        return response.json();
+    })
+
+    .then(function(data){
+
+        if(!data)
+            return;
+
+        document.getElementById(
+            "loginArea"
+        ).style.display="none";
+
+        document.getElementById(
+            "spotifyPlayer"
+        ).style.display="block";
+
+        document.getElementById(
+            "status"
+        ).textContent="";
+
+        isPlaying=
+            data.is_playing;
+
+        document.getElementById(
+            "playButton"
+        ).textContent=
+            isPlaying ?
+            "❚❚" :
+            "▶";
+
+        if(
+            data.item &&
+            data.item.name
+        ){
+
+            document.getElementById(
+                "track"
+            ).textContent=
+                data.item.name;
+
+            var artists=[];
+
+            for(
+                var i=0;
+                i<data.item.artists.length;
+                i++
+            ){
+
+                artists.push(
+                    data.item.artists[i].name
+                );
+            }
+
+            document.getElementById(
+                "artist"
+            ).textContent=
+                artists.join(", ");
+
+            if(
+                data.item.album &&
+                data.item.album.images &&
+                data.item.album.images.length
+            ){
+
+                document.getElementById(
+                    "cover"
+                ).src=
+                    data.item.album.images[0].url;
+            }
+
+            var duration=
+                data.item.duration_ms;
+
+            var progress=
+                data.progress_ms || 0;
+
+            var percent=
+                (progress/duration)*100;
+
+            document.getElementById(
+                "progressFill"
+            ).style.width=
+                percent+"%";
+
+            document.getElementById(
+                "currentTime"
+            ).textContent=
+                formatTime(progress);
+
+            document.getElementById(
+                "duration"
+            ).textContent=
+                formatTime(duration);
+        }
+
+        if(data.device){
+
+            document.getElementById(
+                "device"
+            ).textContent=
+                "Wiedergabe auf "+
+                data.device.name;
+        }
+
+    })
+
+    .catch(function(){
+
+        document.getElementById(
+            "status"
+        ).textContent=
+        "Spotify konnte nicht geladen werden.";
+    });
+}
+
+
+/* ========================================
+   STEUERUNG
+======================================== */
+
+function spotifyCommand(command){
+
+    var endpoint="";
+
+    if(command==="next")
+        endpoint="/me/player/next";
+
+    if(command==="previous")
+        endpoint="/me/player/previous";
+
+    spotifyAPI(
+        endpoint,
+        "POST"
+    )
+
+    .then(function(){
+
+        setTimeout(
+            loadSpotify,
+            500
+        );
+    });
+}
+
+
+function togglePlayback(){
+
+    var endpoint;
+
+    if(isPlaying)
+        endpoint="/me/player/pause";
+    else
+        endpoint="/me/player/play";
+
+    spotifyAPI(
+        endpoint,
+        "PUT"
+    )
+
+    .then(function(){
+
+        isPlaying=!isPlaying;
+
+        document.getElementById(
+            "playButton"
+        ).textContent=
+            isPlaying ?
+            "❚❚" :
+            "▶";
+
+        setTimeout(
+            loadSpotify,
+            500
+        );
+    });
+}
+
+
+/* ========================================
+   ZEIT
+======================================== */
+
+function formatTime(ms){
+
+    var seconds=
+        Math.floor(ms/1000);
+
+    var minutes=
+        Math.floor(seconds/60);
+
+    seconds=
+        seconds%60;
+
+    return minutes+
+        ":"+
+        (seconds<10?"0":"")+
+        seconds;
+}
+
+
+/* ========================================
+   START
+======================================== */
+
+handleCallback()
+
+.then(function(){
+
+    if(
+        localStorage.getItem(
+            "spotify_access_token"
+        )
+    ){
+
+        document.getElementById(
+            "loginArea"
+        ).style.display="none";
+
+        loadSpotify();
+
+        setInterval(
+            loadSpotify,
+            5000
+        );
+    }
+
+});
+
+</script>
+
+</body>
+</html>
