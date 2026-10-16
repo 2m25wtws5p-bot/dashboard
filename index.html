@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Aachen</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #f4f1e8;
+  color: #181818;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.dashboard {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 56% 44%;
+  padding: 55px 70px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 2px solid #222;
+  padding-right: 60px;
+}
+
+.date {
+  font-size: 32px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.time {
+  font-size: 170px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -8px;
+}
+
+.location {
+  margin-top: 35px;
+  font-size: 28px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.right {
+  padding-left: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.weather-main {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.icon {
+  font-size: 90px;
+}
+
+.temperature {
+  font-size: 105px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.condition {
+  font-size: 30px;
+  margin-top: 15px;
+}
+
+.divider {
+  border-top: 2px solid #222;
+  margin: 38px 0;
+}
+
+.details {
+  font-size: 27px;
+  line-height: 1.8;
+}
+
+.forecast {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+  font-size: 23px;
+}
+
+.day {
+  text-align: center;
+}
+
+.day-temp {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.status {
+  position: absolute;
+  bottom: 18px;
+  right: 30px;
+  font-size: 14px;
+  opacity: .45;
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <div class="left">
+    <div class="date" id="date">...</div>
+    <div class="time" id="time">--:--</div>
+    <div class="location">Aachen</div>
+  </div>
+
+  <div class="right">
+
+    <div class="weather-main">
+      <div class="icon" id="icon">☁</div>
+      <div>
+        <div class="temperature">
+          <span id="temperature">--</span>°
+        </div>
+        <div class="condition" id="condition">
+          Wetter wird geladen
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="details">
+      Heute:
+      <strong>
+        <span id="min">--</span>° /
+        <span id="max">--</span>°
+      </strong>
+      <br>
+      Regenwahrscheinlichkeit:
+      <strong><span id="rain">--</span>%</strong>
+    </div>
+
+    <div class="forecast" id="forecast"></div>
+
+  </div>
+
+</div>
+
+<div class="status" id="status"></div>
+
+<script>
+
+function updateClock() {
+
+  const now = new Date();
+
+  document.getElementById("time").textContent =
+    now.toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+  document.getElementById("date").textContent =
+    now.toLocaleDateString("de-DE", {
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    });
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+
+function weatherInfo(code) {
+
+  if (code === 0)
+    return ["☀", "Klar"];
+
+  if ([1,2].includes(code))
+    return ["🌤", "Leicht bewölkt"];
+
+  if (code === 3)
+    return ["☁", "Bewölkt"];
+
+  if ([45,48].includes(code))
+    return ["☁", "Nebel"];
+
+  if ([51,53,55,56,57].includes(code))
+    return ["🌦", "Nieselregen"];
+
+  if ([61,63,65,66,67,80,81,82].includes(code))
+    return ["🌧", "Regen"];
+
+  if ([71,73,75,77,85,86].includes(code))
+    return ["❄", "Schnee"];
+
+  if ([95,96,99].includes(code))
+    return ["⛈", "Gewitter"];
+
+  return ["☁", "Wetter"];
+}
+
+
+async function loadWeather() {
+
+  const url =
+    "https://api.open-meteo.com/v1/forecast" +
+    "?latitude=50.7753" +
+    "&longitude=6.0839" +
+    "&current=temperature_2m,weather_code" +
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
+    "&timezone=Europe%2FBerlin" +
+    "&forecast_days=5";
+
+  try {
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    document.getElementById("temperature").textContent =
+      Math.round(data.current.temperature_2m);
+
+    const info = weatherInfo(data.current.weather_code);
+
+    document.getElementById("icon").textContent = info[0];
+    document.getElementById("condition").textContent = info[1];
+
+    document.getElementById("min").textContent =
+      Math.round(data.daily.temperature_2m_min[0]);
+
+    document.getElementById("max").textContent =
+      Math.round(data.daily.temperature_2m_max[0]);
+
+    document.getElementById("rain").textContent =
+      data.daily.precipitation_probability_max[0];
+
+    const forecast = document.getElementById("forecast");
+    forecast.innerHTML = "";
+
+    for (let i = 1; i < 5; i++) {
+
+      const date = new Date(data.daily.time[i]);
+
+      const dayName =
+        date.toLocaleDateString("de-DE", {
+          weekday: "short"
+        });
+
+      const weather =
+        weatherInfo(data.daily.weather_code[i]);
+
+      forecast.innerHTML +=
+        '<div class="day">' +
+        '<div>' + dayName + '</div>' +
+        '<div style="font-size:34px">' + weather[0] + '</div>' +
+        '<div class="day-temp">' +
+        Math.round(data.daily.temperature_2m_max[i]) + '°' +
+        '</div>' +
+        '</div>';
+    }
+
+    document.getElementById("status").textContent =
+      "Wetter aktualisiert " +
+      new Date().toLocaleTimeString("de-DE", {
+        hour:"2-digit",
+        minute:"2-digit"
+      });
+
+  }
+
+  catch(error) {
+
+    document.getElementById("condition").textContent =
+      "Wetter nicht verfügbar";
+  }
+}
+
+loadWeather();
+
+/* Wetter alle 15 Minuten aktualisieren */
+setInterval(loadWeather, 900000);
+
+</script>
+
+</body>
+</html>
