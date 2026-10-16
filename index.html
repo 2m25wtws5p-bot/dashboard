@@ -146,9 +146,9 @@ body {
 /* TERMINE */
 
 .events {
-    margin-top: 15px;
+    margin-top: 12px;
     border-top: 1px solid #3b4044;
-    padding-top: 12px;
+    padding-top: 10px;
 }
 
 .events-header {
@@ -351,36 +351,17 @@ body {
 .rain-track {
     position:relative;
     height:82px;
-    width:54%;
-    min-width:28px;
-    max-width:42px;
-    background:#202427;
-    border:1px solid #454b4f;
-    overflow:hidden;
+    width:22px;
 }
-
-/* Hilfslinien */
-
-.rain-guide {
-    position:absolute;
-    left:0;
-    width:100%;
-    height:1px;
-    background:#3b4145;
-    z-index:2;
-}
-
-.g25 { bottom:25%; }
-.g50 { bottom:50%; }
-.g75 { bottom:75%; }
 
 .rain-fill {
     position:absolute;
     left:0;
     bottom:0;
     width:100%;
+    min-height:2px;
     background:#dfe1e1;
-    z-index:1;
+    border-radius:2px 2px 0 0;
 }
 
 .rain-hour {
@@ -476,6 +457,161 @@ body {
     font-size:9px;
 }
 
+
+/* ================= SPOTIFY ================= */
+
+.spotify-panel {
+    margin-top: 14px;
+    border-top: 1px solid #3b4044;
+    padding-top: 12px;
+}
+
+.spotify-head {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.spotify-state {
+    font-size:10px;
+    color:#686e72;
+}
+
+.spotify-body {
+    display:grid;
+    grid-template-columns:78px minmax(0,1fr) 105px;
+    gap:14px;
+    align-items:center;
+    margin-top:10px;
+    min-height:78px;
+}
+
+.spotify-cover {
+    width:78px;
+    height:78px;
+    object-fit:cover;
+    background:#202427;
+}
+
+.spotify-meta {
+    min-width:0;
+}
+
+.spotify-track {
+    font-size:18px;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.spotify-artist {
+    margin-top:4px;
+    font-size:13px;
+    color:#92979a;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.spotify-device {
+    margin-top:5px;
+    font-size:9px;
+    color:#5f6569;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.spotify-controls {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:13px;
+}
+
+.spotify-btn {
+    border:0;
+    padding:0;
+    background:transparent;
+    color:#e4e6e6;
+    font-size:27px;
+    line-height:1;
+    cursor:pointer;
+}
+
+.spotify-btn.play {
+    font-size:31px;
+    min-width:31px;
+}
+
+.spotify-progress {
+    height:2px;
+    background:#292d30;
+    margin-top:9px;
+}
+
+.spotify-progress-fill {
+    width:0;
+    height:100%;
+    background:#dfe1e1;
+}
+
+.spotify-times {
+    display:flex;
+    justify-content:space-between;
+    margin-top:4px;
+    font-size:9px;
+    color:#646a6e;
+}
+
+.spotify-login {
+    border:1px solid #454b4f;
+    background:transparent;
+    color:#d9dcdd;
+    padding:7px 11px;
+    font-size:11px;
+    cursor:pointer;
+}
+
+/* TABLET-AKKU */
+
+.tablet-status {
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    color:#777d81;
+}
+
+.battery-icon {
+    position:relative;
+    width:21px;
+    height:10px;
+    border:1px solid #777d81;
+    border-radius:2px;
+}
+
+.battery-icon:after {
+    content:"";
+    position:absolute;
+    right:-3px;
+    top:2px;
+    width:2px;
+    height:4px;
+    background:#777d81;
+}
+
+.battery-fill {
+    position:absolute;
+    left:1px;
+    top:1px;
+    bottom:1px;
+    width:0;
+    max-width:17px;
+    background:#cdd0d1;
+}
+
 /* SVG */
 
 .weather-svg {
@@ -510,6 +646,18 @@ body {
         width:105px;
         height:105px;
     }
+
+    .spotify-body {
+        grid-template-columns:64px minmax(0,1fr) 94px;
+        gap:10px;
+    }
+
+    .spotify-cover {
+        width:64px;
+        height:64px;
+    }
+
+    .spotify-track { font-size:16px; }
 }
 </style>
 </head>
@@ -540,6 +688,43 @@ body {
 
 </div>
 
+
+<div class="spotify-panel">
+
+<div class="spotify-head">
+<div class="section-title">Spotify</div>
+<div id="spotifyState" class="spotify-state">wird geladen</div>
+</div>
+
+<div id="spotifyBody" class="spotify-body">
+
+<img id="spotifyCover" class="spotify-cover" alt="">
+
+<div class="spotify-meta">
+<div id="spotifyTrack" class="spotify-track">Keine aktive Wiedergabe</div>
+<div id="spotifyArtist" class="spotify-artist">Spotify</div>
+<div id="spotifyDevice" class="spotify-device"></div>
+</div>
+
+<div id="spotifyControls" class="spotify-controls">
+<button class="spotify-btn" onclick="spotifyCommand('previous')" aria-label="Zurück">‹</button>
+<button id="spotifyPlayButton" class="spotify-btn play" onclick="togglePlayback()" aria-label="Play Pause">▶</button>
+<button class="spotify-btn" onclick="spotifyCommand('next')" aria-label="Weiter">›</button>
+</div>
+
+</div>
+
+<div class="spotify-progress">
+<div id="spotifyProgressFill" class="spotify-progress-fill"></div>
+</div>
+
+<div class="spotify-times">
+<span id="spotifyCurrentTime">0:00</span>
+<span id="spotifyDuration">0:00</span>
+</div>
+
+</div>
+
 <div class="events">
 
 <div class="events-header">
@@ -562,7 +747,11 @@ Kalender noch nicht verbunden
 
 <div class="weather-heading">
 <div class="section-title">Wetter</div>
-<div class="weather-location">Aachen</div>
+<div class="tablet-status">
+<span id="tabletCharging"></span>
+<div class="battery-icon"><div id="batteryFill" class="battery-fill"></div></div>
+<span id="tabletBattery">--%</span>
+</div>
 </div>
 
 <div class="current-weather">
@@ -644,8 +833,8 @@ Wind <span id="wind">--</span> km/h
 <div class="rain-section">
 
 <div class="rain-head">
-<div class="section-title">Regen heute</div>
-<div class="rain-caption">0 – 100 %</div>
+<div class="section-title">Regen · nächste Stunden</div>
+<div class="rain-caption">Wahrscheinlichkeit</div>
 </div>
 
 <div id="rainTimeline" class="rain-timeline"></div>
@@ -896,10 +1085,6 @@ function buildRainTimeline(data){
 
             '<div class="rain-track">'+
 
-                '<div class="rain-guide g25"></div>'+
-                '<div class="rain-guide g50"></div>'+
-                '<div class="rain-guide g75"></div>'+
-
                 '<div class="rain-fill" style="height:'+
                 probability+'%"></div>'+
 
@@ -1096,6 +1281,233 @@ fetch(url)
 });
 
 }
+
+
+
+/* ================= TABLET-AKKU ================= */
+
+function renderTabletBattery(level, charging) {
+    level=Math.max(0,Math.min(100,Math.round(level)));
+    document.getElementById("tabletBattery").textContent=level+"%";
+    document.getElementById("batteryFill").style.width=(level*0.17)+"px";
+    document.getElementById("tabletCharging").textContent=charging ? "↯" : "";
+}
+
+function updateTabletBattery() {
+    try {
+        if(typeof fully!=="undefined" && typeof fully.getBatteryLevel==="function") {
+            var level=fully.getBatteryLevel();
+            var plugged=false;
+            try {
+                if(typeof fully.isPlugged==="function") plugged=fully.isPlugged();
+            } catch(e) {}
+            renderTabletBattery(level,plugged);
+            return;
+        }
+    } catch(e) {}
+
+    if(navigator.getBattery) {
+        navigator.getBattery().then(function(battery){
+            renderTabletBattery(battery.level*100,battery.charging);
+        }).catch(function(){});
+    }
+}
+
+updateTabletBattery();
+setInterval(updateTabletBattery,30000);
+
+
+/* ================= SPOTIFY ================= */
+
+/*
+   spotify.html hat die Anmeldung bereits erledigt.
+   Beide Seiten liegen unter derselben Origin und teilen deshalb localStorage.
+*/
+
+var spotifyIsPlaying=false;
+
+function spotifyFormatTime(ms) {
+    var seconds=Math.floor((ms||0)/1000);
+    var minutes=Math.floor(seconds/60);
+    seconds=seconds%60;
+    return minutes+":"+(seconds<10?"0":"")+seconds;
+}
+
+function spotifySaveTokens(data) {
+    if(data.access_token) {
+        localStorage.setItem("spotify_access_token",data.access_token);
+        localStorage.setItem(
+            "spotify_token_expiry",
+            Date.now()+((data.expires_in||3600)*1000)
+        );
+    }
+    if(data.refresh_token) {
+        localStorage.setItem("spotify_refresh_token",data.refresh_token);
+    }
+}
+
+function spotifyRefreshToken() {
+    var refresh=localStorage.getItem("spotify_refresh_token");
+    if(!refresh) return Promise.reject(new Error("Kein Refresh Token"));
+
+    var body=
+        "grant_type=refresh_token"+
+        "&refresh_token="+encodeURIComponent(refresh)+
+        "&client_id="+encodeURIComponent("39ba0b76b7364bd1af1a5a5a80917066");
+
+    return fetch("https://accounts.spotify.com/api/token",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded"
+        },
+        body:body
+    })
+    .then(function(response){
+        if(!response.ok) throw new Error("Spotify Refresh fehlgeschlagen");
+        return response.json();
+    })
+    .then(function(data){
+        spotifySaveTokens(data);
+        return data.access_token;
+    });
+}
+
+function spotifyGetToken() {
+    var token=localStorage.getItem("spotify_access_token");
+    var expiry=parseInt(localStorage.getItem("spotify_token_expiry")||"0");
+
+    if(token && Date.now()<expiry-60000) {
+        return Promise.resolve(token);
+    }
+
+    return spotifyRefreshToken();
+}
+
+function spotifyAPI(endpoint,method) {
+    return spotifyGetToken().then(function(token){
+        return fetch("https://api.spotify.com/v1"+endpoint,{
+            method:method||"GET",
+            headers:{
+                "Authorization":"Bearer "+token
+            }
+        });
+    });
+}
+
+function showSpotifyLogin() {
+    document.getElementById("spotifyState").textContent="nicht verbunden";
+    document.getElementById("spotifyTrack").textContent="Spotify verbinden";
+    document.getElementById("spotifyArtist").innerHTML=
+        '<button class="spotify-login" onclick="window.location.href=\\'spotify.html\\'">Anmelden</button>';
+    document.getElementById("spotifyDevice").textContent="";
+    document.getElementById("spotifyControls").style.visibility="hidden";
+    document.getElementById("spotifyCover").removeAttribute("src");
+}
+
+function showSpotifyIdle() {
+    document.getElementById("spotifyState").textContent="bereit";
+    document.getElementById("spotifyTrack").textContent="Keine aktive Wiedergabe";
+    document.getElementById("spotifyArtist").textContent="Starte Spotify auf einem Gerät";
+    document.getElementById("spotifyDevice").textContent="";
+    document.getElementById("spotifyControls").style.visibility="visible";
+    document.getElementById("spotifyProgressFill").style.width="0%";
+    document.getElementById("spotifyCurrentTime").textContent="0:00";
+    document.getElementById("spotifyDuration").textContent="0:00";
+}
+
+function loadSpotify() {
+    if(!localStorage.getItem("spotify_refresh_token") &&
+       !localStorage.getItem("spotify_access_token")) {
+        showSpotifyLogin();
+        return;
+    }
+
+    spotifyAPI("/me/player","GET")
+    .then(function(response){
+        if(response.status===204) {
+            showSpotifyIdle();
+            return null;
+        }
+        if(response.status===401) {
+            throw new Error("Spotify Login abgelaufen");
+        }
+        if(!response.ok) {
+            throw new Error("Spotify API "+response.status);
+        }
+        return response.json();
+    })
+    .then(function(data){
+        if(!data) return;
+
+        document.getElementById("spotifyState").textContent=
+            data.is_playing ? "spielt" : "pausiert";
+
+        spotifyIsPlaying=!!data.is_playing;
+        document.getElementById("spotifyPlayButton").textContent=
+            spotifyIsPlaying ? "❚❚" : "▶";
+        document.getElementById("spotifyControls").style.visibility="visible";
+
+        if(data.item) {
+            document.getElementById("spotifyTrack").textContent=data.item.name||"Spotify";
+
+            var artists=[];
+            if(data.item.artists) {
+                for(var i=0;i<data.item.artists.length;i++) {
+                    artists.push(data.item.artists[i].name);
+                }
+            }
+            document.getElementById("spotifyArtist").textContent=artists.join(", ");
+
+            if(data.item.album && data.item.album.images && data.item.album.images.length) {
+                document.getElementById("spotifyCover").src=data.item.album.images[0].url;
+            }
+
+            var duration=data.item.duration_ms||0;
+            var progress=data.progress_ms||0;
+            var percent=duration ? Math.max(0,Math.min(100,(progress/duration)*100)) : 0;
+
+            document.getElementById("spotifyProgressFill").style.width=percent+"%";
+            document.getElementById("spotifyCurrentTime").textContent=spotifyFormatTime(progress);
+            document.getElementById("spotifyDuration").textContent=spotifyFormatTime(duration);
+        }
+
+        document.getElementById("spotifyDevice").textContent=
+            data.device && data.device.name ? "Auf "+data.device.name : "";
+    })
+    .catch(function(error){
+        document.getElementById("spotifyState").textContent="Verbindung prüfen";
+        document.getElementById("spotifyTrack").textContent="Spotify nicht erreichbar";
+        document.getElementById("spotifyArtist").textContent=error.message||"";
+    });
+}
+
+function spotifyCommand(command) {
+    var endpoint=command==="next" ? "/me/player/next" : "/me/player/previous";
+
+    spotifyAPI(endpoint,"POST")
+    .then(function(response){
+        if(!response.ok && response.status!==204) throw new Error();
+        setTimeout(loadSpotify,600);
+    })
+    .catch(function(){ loadSpotify(); });
+}
+
+function togglePlayback() {
+    var endpoint=spotifyIsPlaying ? "/me/player/pause" : "/me/player/play";
+
+    spotifyAPI(endpoint,"PUT")
+    .then(function(response){
+        if(!response.ok && response.status!==204) throw new Error();
+        spotifyIsPlaying=!spotifyIsPlaying;
+        document.getElementById("spotifyPlayButton").textContent=
+            spotifyIsPlaying ? "❚❚" : "▶";
+        setTimeout(loadSpotify,600);
+    })
+    .catch(function(){ loadSpotify(); });
+}
+
+loadSpotify();
+setInterval(loadSpotify,5000);
 
 
 loadWeather();
