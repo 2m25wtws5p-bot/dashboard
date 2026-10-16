@@ -1,459 +1,1197 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard Aachen</title>
+
 
 <style>
-* { box-sizing: border-box; }
 
-html, body {
+/* =========================
+   GRUNDLAYOUT
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
     margin: 0;
     width: 100%;
     height: 100%;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f3f0e8;
-    color: #171717;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #111315;
+
+    color: #eeeeea;
+
     overflow: hidden;
 }
 
+
+/* =========================
+   DASHBOARD
+   ========================= */
+
 .dashboard {
+
+    width: 100vw;
     height: 100vh;
-    padding: 45px 60px;
+
+    padding:
+        42px
+        55px;
+
     display: grid;
-    grid-template-columns: 45% 55%;
-    gap: 55px;
+
+    grid-template-columns:
+        45% 55%;
+
+    gap: 50px;
 }
 
-/* LEFT */
+
+/* =========================
+   LINKE SEITE
+   ========================= */
 
 .left {
+
     display: flex;
+
     flex-direction: column;
 }
+
 
 .location {
+
     font-size: 24px;
+
     font-weight: bold;
-    letter-spacing: 3px;
+
+    letter-spacing: 4px;
+
     text-transform: uppercase;
+
+    color: #d8d8d4;
 }
+
 
 .time {
+
     font-size: 145px;
+
     font-weight: 700;
+
     line-height: 1;
+
     letter-spacing: -7px;
+
     margin-top: 35px;
+
+    color: #ffffff;
 }
+
 
 .date {
-    font-size: 31px;
+
+    font-size: 30px;
+
     margin-top: 15px;
+
+    color: #d2d2cf;
 }
 
-.weather-now {
-    margin-top: auto;
-    padding-top: 30px;
-    border-top: 2px solid #1b1b1b;
-}
 
-.now-row {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
+/* Dieser Bereich bleibt vorerst frei.
+   Hier kommt später der Kalender hin. */
 
-.weather-icon {
-    font-size: 68px;
-    width: 85px;
-    text-align: center;
-}
+.calendar-space {
 
-.temperature {
-    font-size: 72px;
-    font-weight: bold;
-}
-
-.condition {
-    font-size: 25px;
-    margin-top: 8px;
-}
-
-.feels {
-    font-size: 20px;
-    opacity: .65;
-    margin-top: 5px;
-}
-
-/* RIGHT */
-
-.right {
-    border-left: 2px solid #1b1b1b;
-    padding-left: 55px;
-    display: flex;
-    flex-direction: column;
-}
-
-.heading {
-    font-size: 20px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 25px;
-}
-
-.today-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px 40px;
-}
-
-.metric {
-    border-bottom: 1px solid #aaa;
-    padding-bottom: 15px;
-}
-
-.metric-label {
-    font-size: 17px;
-    opacity: .6;
-    margin-bottom: 5px;
-}
-
-.metric-value {
-    font-size: 29px;
-    font-weight: bold;
-}
-
-.forecast-title {
-    margin-top: 45px;
-}
-
-.forecast {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 15px;
     flex: 1;
 }
 
-.day {
-    text-align: center;
-    padding: 18px 8px;
+
+/* =========================
+   AKTUELLES WETTER
+   ========================= */
+
+.weather-now {
+
+    padding-top: 28px;
+
+    border-top:
+        2px solid
+        #44484c;
 }
+
+
+.heading {
+
+    font-size: 19px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    font-weight: bold;
+
+    color: #d8d8d4;
+}
+
+
+.now-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 22px;
+}
+
+
+.weather-icon {
+
+    width: 85px;
+
+    font-size: 65px;
+
+    text-align: center;
+}
+
+
+.temperature {
+
+    font-size: 72px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    color: #ffffff;
+}
+
+
+.condition {
+
+    font-size: 24px;
+
+    margin-top: 12px;
+
+    color: #eeeeea;
+}
+
+
+.feels {
+
+    font-size: 19px;
+
+    margin-top: 6px;
+
+    color: #92969a;
+}
+
+
+/* =========================
+   RECHTE SEITE
+   ========================= */
+
+.right {
+
+    border-left:
+        2px solid
+        #44484c;
+
+    padding-left: 50px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* =========================
+   HEUTIGE WERTE
+   ========================= */
+
+.today-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        18px
+        38px;
+
+    margin-top: 25px;
+}
+
+
+.metric {
+
+    border-bottom:
+        1px solid
+        #34383c;
+
+    padding-bottom: 15px;
+}
+
+
+.metric-label {
+
+    font-size: 16px;
+
+    color: #85898d;
+
+    margin-bottom: 6px;
+}
+
+
+.metric-value {
+
+    font-size: 29px;
+
+    font-weight: bold;
+
+    color: #eeeeea;
+}
+
+
+/* =========================
+   VORHERSAGE
+   ========================= */
+
+.forecast-title {
+
+    margin-top: 42px;
+
+    margin-bottom: 15px;
+}
+
+
+.forecast {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+
+    flex: 1;
+}
+
+
+.day {
+
+    text-align: center;
+
+    padding:
+        18px
+        5px;
+}
+
 
 .day-name {
-    font-size: 20px;
+
+    font-size: 19px;
+
     font-weight: bold;
+
     text-transform: uppercase;
+
+    color: #d8d8d4;
 }
+
 
 .day-icon {
-    font-size: 43px;
-    margin: 16px 0;
+
+    font-size: 42px;
+
+    margin:
+        16px
+        0;
 }
+
 
 .day-temp {
+
     font-size: 25px;
+
     font-weight: bold;
+
+    color: #ffffff;
 }
+
 
 .day-min {
-    font-size: 18px;
-    opacity: .55;
-    margin-top: 4px;
+
+    font-size: 17px;
+
+    color: #7f8488;
+
+    margin-top: 5px;
 }
 
+
 .day-rain {
-    font-size: 17px;
+
+    font-size: 16px;
+
+    color: #aeb2b5;
+
     margin-top: 12px;
 }
 
+
+/* =========================
+   STATUS
+   ========================= */
+
 .footer {
+
     text-align: right;
-    font-size: 13px;
-    opacity: .4;
-    margin-top: 8px;
+
+    font-size: 12px;
+
+    color: #666b6f;
+
+    margin-top: 5px;
 }
 
+
+/* =========================
+   KLEINERE DISPLAYS
+   ========================= */
+
 @media(max-width:1000px) {
+
     .dashboard {
-        padding: 30px 35px;
+
+        padding:
+            30px
+            35px;
+
         gap: 30px;
     }
 
-    .time { font-size: 115px; }
-    .right { padding-left: 30px; }
+    .time {
+
+        font-size: 115px;
+    }
+
+    .right {
+
+        padding-left: 30px;
+    }
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="dashboard">
+
+
+<!-- =====================
+     LINKE SEITE
+     ===================== -->
 
 <section class="left">
 
-    <div class="location">Aachen</div>
 
-    <div id="time" class="time">--:--</div>
-    <div id="date" class="date">...</div>
+<div class="location">
 
-    <div class="weather-now">
-
-        <div class="heading">Jetzt</div>
-
-        <div class="now-row">
-
-            <div id="currentIcon" class="weather-icon">·</div>
-
-            <div>
-                <div class="temperature">
-                    <span id="temperature">--</span>°
-                </div>
-
-                <div id="condition" class="condition">
-                    Wetter wird geladen
-                </div>
-
-                <div class="feels">
-                    Gefühlt <span id="feels">--</span>°
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="right">
-
-    <div class="heading">Heute</div>
-
-    <div class="today-grid">
-
-        <div class="metric">
-            <div class="metric-label">Höchsttemperatur</div>
-            <div class="metric-value"><span id="max">--</span>°</div>
-        </div>
-
-        <div class="metric">
-            <div class="metric-label">Tiefsttemperatur</div>
-            <div class="metric-value"><span id="min">--</span>°</div>
-        </div>
-
-        <div class="metric">
-            <div class="metric-label">Regenwahrscheinlichkeit</div>
-            <div class="metric-value"><span id="rain">--</span>%</div>
-        </div>
-
-        <div class="metric">
-            <div class="metric-label">Wind</div>
-            <div class="metric-value"><span id="wind">--</span> km/h</div>
-        </div>
-
-    </div>
-
-    <div class="heading forecast-title">Die nächsten Tage</div>
-
-    <div id="forecast" class="forecast"></div>
-
-    <div id="updated" class="footer"></div>
-
-</section>
+Aachen
 
 </div>
 
 
+<div
+id="time"
+class="time">
+
+--:--
+
+</div>
+
+
+<div
+id="date"
+class="date">
+
+...
+
+</div>
+
+
+<div class="calendar-space">
+
+</div>
+
+
+<div class="weather-now">
+
+
+<div class="heading">
+
+Jetzt
+
+</div>
+
+
+<div class="now-row">
+
+
+<div
+id="currentIcon"
+class="weather-icon">
+
+·
+
+</div>
+
+
+<div>
+
+
+<div class="temperature">
+
+<span id="temperature">
+
+--
+
+</span>°
+
+</div>
+
+
+<div
+id="condition"
+class="condition">
+
+Wetter wird geladen
+
+</div>
+
+
+<div class="feels">
+
+Gefühlt
+
+<span id="feels">
+
+--
+
+</span>°
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================
+     RECHTE SEITE
+     ===================== -->
+
+<section class="right">
+
+
+<div class="heading">
+
+Heute
+
+</div>
+
+
+<div class="today-grid">
+
+
+<div class="metric">
+
+<div class="metric-label">
+
+Höchsttemperatur
+
+</div>
+
+<div class="metric-value">
+
+<span id="max">
+
+--
+
+</span>°
+
+</div>
+
+</div>
+
+
+
+<div class="metric">
+
+<div class="metric-label">
+
+Tiefsttemperatur
+
+</div>
+
+<div class="metric-value">
+
+<span id="min">
+
+--
+
+</span>°
+
+</div>
+
+</div>
+
+
+
+<div class="metric">
+
+<div class="metric-label">
+
+Regenwahrscheinlichkeit
+
+</div>
+
+<div class="metric-value">
+
+<span id="rain">
+
+--
+
+</span>%
+
+</div>
+
+</div>
+
+
+
+<div class="metric">
+
+<div class="metric-label">
+
+Wind
+
+</div>
+
+<div class="metric-value">
+
+<span id="wind">
+
+--
+
+</span>
+
+km/h
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="heading forecast-title">
+
+Die nächsten Tage
+
+</div>
+
+
+<div
+id="forecast"
+class="forecast">
+
+</div>
+
+
+<div
+id="updated"
+class="footer">
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+
 <script>
+
+
+/* =========================
+   UHR + DATUM
+   ========================= */
+
 
 function updateClock() {
 
-    var now = new Date();
 
-    document.getElementById("time").textContent =
-        now.toLocaleTimeString("de-DE", {
-            hour: "2-digit",
-            minute: "2-digit"
-        });
+    var now =
+        new Date();
 
-    document.getElementById("date").textContent =
-        now.toLocaleDateString("de-DE", {
-            weekday: "long",
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        });
+
+    document
+        .getElementById("time")
+        .textContent =
+
+        now.toLocaleTimeString(
+            "de-DE",
+            {
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+
+    document
+        .getElementById("date")
+        .textContent =
+
+        now.toLocaleDateString(
+            "de-DE",
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
 }
 
+
 updateClock();
-setInterval(updateClock,1000);
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+
+
+/* =========================
+   WETTERCODES
+   ========================= */
 
 
 function weatherInfo(code) {
 
+
     if (code === 0)
-        return ["☀️","Klar"];
+
+        return [
+            "☀️",
+            "Klar"
+        ];
+
 
     if (code === 1)
-        return ["🌤️","Überwiegend klar"];
+
+        return [
+            "🌤️",
+            "Überwiegend klar"
+        ];
+
 
     if (code === 2)
-        return ["⛅","Teilweise bewölkt"];
+
+        return [
+            "⛅",
+            "Teilweise bewölkt"
+        ];
+
 
     if (code === 3)
-        return ["☁️","Bewölkt"];
 
-    if (code === 45 || code === 48)
-        return ["🌫️","Nebel"];
+        return [
+            "☁️",
+            "Bewölkt"
+        ];
 
-    if ([51,53,55,56,57].indexOf(code) !== -1)
-        return ["🌦️","Nieselregen"];
 
-    if ([61,63,65,66,67].indexOf(code) !== -1)
-        return ["🌧️","Regen"];
+    if (
+        code === 45 ||
+        code === 48
+    )
 
-    if ([80,81,82].indexOf(code) !== -1)
-        return ["🌦️","Regenschauer"];
+        return [
+            "🌫️",
+            "Nebel"
+        ];
 
-    if ([71,73,75,77,85,86].indexOf(code) !== -1)
-        return ["❄️","Schnee"];
 
-    if ([95,96,99].indexOf(code) !== -1)
-        return ["⛈️","Gewitter"];
+    if (
+        [
+            51,
+            53,
+            55,
+            56,
+            57
+        ].indexOf(code)
+        !== -1
+    )
 
-    return ["☁️","Wetter"];
+        return [
+            "🌦️",
+            "Nieselregen"
+        ];
+
+
+    if (
+        [
+            61,
+            63,
+            65,
+            66,
+            67
+        ].indexOf(code)
+        !== -1
+    )
+
+        return [
+            "🌧️",
+            "Regen"
+        ];
+
+
+    if (
+        [
+            80,
+            81,
+            82
+        ].indexOf(code)
+        !== -1
+    )
+
+        return [
+            "🌦️",
+            "Regenschauer"
+        ];
+
+
+    if (
+        [
+            71,
+            73,
+            75,
+            77,
+            85,
+            86
+        ].indexOf(code)
+        !== -1
+    )
+
+        return [
+            "❄️",
+            "Schnee"
+        ];
+
+
+    if (
+        [
+            95,
+            96,
+            99
+        ].indexOf(code)
+        !== -1
+    )
+
+        return [
+            "⛈️",
+            "Gewitter"
+        ];
+
+
+    return [
+        "☁️",
+        "Wetter"
+    ];
+
 }
+
+
+
+/* =========================
+   WOCHENTAG
+   ========================= */
 
 
 function shortDay(dateString) {
 
-    var d = new Date(dateString + "T12:00:00");
 
-    return d.toLocaleDateString("de-DE", {
-        weekday:"short"
-    });
+    var date =
+        new Date(
+            dateString +
+            "T12:00:00"
+        );
+
+
+    return date
+        .toLocaleDateString(
+            "de-DE",
+            {
+                weekday:
+                    "short"
+            }
+        );
+
 }
+
+
+
+/* =========================
+   WETTER LADEN
+   ========================= */
 
 
 function loadWeather() {
 
+
     var url =
+
         "https://api.open-meteo.com/v1/forecast" +
+
         "?latitude=50.7753" +
+
         "&longitude=6.0839" +
-        "&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m" +
-        "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
+
+        "&current=" +
+
+        "temperature_2m," +
+
+        "apparent_temperature," +
+
+        "weather_code," +
+
+        "wind_speed_10m" +
+
+        "&daily=" +
+
+        "weather_code," +
+
+        "temperature_2m_max," +
+
+        "temperature_2m_min," +
+
+        "precipitation_probability_max" +
+
         "&timezone=Europe%2FBerlin" +
+
         "&forecast_days=5";
+
+
 
     fetch(url)
 
+
     .then(function(response) {
 
-        if (!response.ok)
-            throw new Error("HTTP " + response.status);
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
 
         return response.json();
+
     })
+
 
     .then(function(data) {
 
-        var info = weatherInfo(data.current.weather_code);
 
-        document.getElementById("temperature").textContent =
-            Math.round(data.current.temperature_2m);
+        var info =
+            weatherInfo(
+                data.current.weather_code
+            );
 
-        document.getElementById("feels").textContent =
-            Math.round(data.current.apparent_temperature);
 
-        document.getElementById("currentIcon").textContent =
+
+        document
+            .getElementById(
+                "temperature"
+            )
+            .textContent =
+
+            Math.round(
+                data.current.temperature_2m
+            );
+
+
+
+        document
+            .getElementById(
+                "feels"
+            )
+            .textContent =
+
+            Math.round(
+                data.current.apparent_temperature
+            );
+
+
+
+        document
+            .getElementById(
+                "currentIcon"
+            )
+            .textContent =
+
             info[0];
 
-        document.getElementById("condition").textContent =
+
+
+        document
+            .getElementById(
+                "condition"
+            )
+            .textContent =
+
             info[1];
 
-        document.getElementById("wind").textContent =
-            Math.round(data.current.wind_speed_10m);
 
-        document.getElementById("max").textContent =
-            Math.round(data.daily.temperature_2m_max[0]);
 
-        document.getElementById("min").textContent =
-            Math.round(data.daily.temperature_2m_min[0]);
+        document
+            .getElementById(
+                "wind"
+            )
+            .textContent =
 
-        document.getElementById("rain").textContent =
-            data.daily.precipitation_probability_max[0];
+            Math.round(
+                data.current.wind_speed_10m
+            );
+
+
+
+        document
+            .getElementById(
+                "max"
+            )
+            .textContent =
+
+            Math.round(
+                data.daily.temperature_2m_max[0]
+            );
+
+
+
+        document
+            .getElementById(
+                "min"
+            )
+            .textContent =
+
+            Math.round(
+                data.daily.temperature_2m_min[0]
+            );
+
+
+
+        document
+            .getElementById(
+                "rain"
+            )
+            .textContent =
+
+            data.daily
+                .precipitation_probability_max[0];
+
+
 
         var forecast =
-            document.getElementById("forecast");
+            document.getElementById(
+                "forecast"
+            );
 
-        forecast.innerHTML = "";
 
-        for (var i = 1; i < 5; i++) {
+        forecast.innerHTML =
+            "";
+
+
+
+        for (
+            var i = 1;
+            i < 5;
+            i++
+        ) {
+
 
             var dayWeather =
-                weatherInfo(data.daily.weather_code[i]);
+                weatherInfo(
+                    data.daily.weather_code[i]
+                );
+
+
 
             forecast.innerHTML +=
 
+
                 '<div class="day">' +
 
-                    '<div class="day-name">' +
-                        shortDay(data.daily.time[i]) +
-                    '</div>' +
 
-                    '<div class="day-icon">' +
-                        dayWeather[0] +
-                    '</div>' +
+                '<div class="day-name">' +
 
-                    '<div class="day-temp">' +
-                        Math.round(data.daily.temperature_2m_max[i]) +
-                        '°' +
-                    '</div>' +
+                shortDay(
+                    data.daily.time[i]
+                ) +
 
-                    '<div class="day-min">' +
-                        Math.round(data.daily.temperature_2m_min[i]) +
-                        '° min' +
-                    '</div>' +
+                '</div>' +
 
-                    '<div class="day-rain">☂ ' +
-                        data.daily.precipitation_probability_max[i] +
-                        '%</div>' +
+
+                '<div class="day-icon">' +
+
+                dayWeather[0] +
+
+                '</div>' +
+
+
+                '<div class="day-temp">' +
+
+                Math.round(
+                    data.daily
+                        .temperature_2m_max[i]
+                ) +
+
+                '°</div>' +
+
+
+                '<div class="day-min">' +
+
+                Math.round(
+                    data.daily
+                        .temperature_2m_min[i]
+                ) +
+
+                '° min</div>' +
+
+
+                '<div class="day-rain">' +
+
+                '☂ ' +
+
+                data.daily
+                    .precipitation_probability_max[i] +
+
+                '%</div>' +
+
 
                 '</div>';
+
         }
 
-        document.getElementById("updated").textContent =
+
+
+        document
+            .getElementById(
+                "updated"
+            )
+            .textContent =
+
             "Wetter aktualisiert " +
-            new Date().toLocaleTimeString("de-DE", {
-                hour:"2-digit",
-                minute:"2-digit"
-            });
+
+            new Date()
+                .toLocaleTimeString(
+                    "de-DE",
+                    {
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit"
+                    }
+                );
 
     })
 
+
     .catch(function(error) {
 
-        document.getElementById("condition").textContent =
+
+        document
+            .getElementById(
+                "condition"
+            )
+            .textContent =
+
             "Wetterdaten nicht verfügbar";
 
+
         console.log(error);
+
     });
+
 }
 
 
+
+/* Wetter sofort laden */
+
 loadWeather();
 
-/* alle 15 Minuten */
-setInterval(loadWeather,900000);
+
+/* anschließend alle 15 Minuten */
+
+setInterval(
+    loadWeather,
+    900000
+);
+
 
 </script>
 
+
 </body>
+
 </html>
