@@ -6,6 +6,7 @@
 <title>Dashboard</title>
 
 <style>
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -24,13 +25,33 @@ body {
 .dashboard {
     width: 100vw;
     height: 100vh;
-    padding: 34px 48px;
+    padding: 30px 46px;
     display: grid;
     grid-template-columns: 48% 52%;
-    gap: 45px;
+    gap: 42px;
 }
 
-/* ---------- LINKS ---------- */
+
+/* =========================
+   ALLGEMEIN
+   ========================= */
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d1d4d5;
+}
+
+.muted {
+    color: #777d81;
+}
+
+
+/* =========================
+   LINKS
+   ========================= */
 
 .left {
     display: flex;
@@ -38,153 +59,156 @@ body {
     min-width: 0;
 }
 
-.topline {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.location,
-.section-title {
+.location {
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #bfc3c6;
+    color: #c9cdcf;
 }
 
 .time {
-    font-size: 112px;
-    line-height: .95;
-    letter-spacing: -6px;
+    font-size: 140px;
+    line-height: .9;
+    letter-spacing: -7px;
     font-weight: 700;
-    margin-top: 18px;
+    margin-top: 14px;
     color: #fff;
 }
 
 .date {
-    font-size: 24px;
-    margin-top: 10px;
-    color: #d2d5d6;
+    font-size: 27px;
+    margin-top: 14px;
+    color: #d7d9da;
 }
 
-/* ---------- MONATSKALENDER ---------- */
+
+/* =========================
+   MONATSKALENDER
+   ========================= */
 
 .calendar-box {
-    margin-top: 25px;
-    border-top: 1px solid #35393d;
-    padding-top: 18px;
+    margin-top: 24px;
+    border-top: 1px solid #3b4044;
+    padding-top: 17px;
 }
 
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 11px;
+    margin-bottom: 12px;
 }
 
 .month-name {
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .calendar-year {
-    font-size: 15px;
-    color: #747a7e;
+    font-size: 17px;
+    color: #858b8f;
 }
 
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    gap: 3px 5px;
+    row-gap: 6px;
+    column-gap: 5px;
 }
 
 .weekday {
-    font-size: 11px;
-    color: #686e72;
+    font-size: 13px;
     font-weight: 700;
-    padding-bottom: 4px;
+    color: #747a7e;
+    padding-bottom: 3px;
 }
 
 .calendar-day {
-    height: 25px;
-    line-height: 25px;
-    font-size: 14px;
-    color: #c7cacc;
+    height: 30px;
+    line-height: 30px;
+    font-size: 17px;
+    color: #d1d4d5;
 }
 
 .calendar-day.other {
-    color: #41464a;
+    color: #484d51;
 }
 
 .calendar-day.today {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: auto;
+    border-radius: 50%;
     background: #f0f0ed;
     color: #101214;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    border-radius: 50%;
-    margin: auto;
     font-weight: 700;
 }
 
-/* ---------- TERMINE ---------- */
+
+/* =========================
+   TERMINE
+   ========================= */
 
 .events {
-    margin-top: 20px;
-    border-top: 1px solid #35393d;
-    padding-top: 16px;
+    margin-top: 19px;
+    border-top: 1px solid #3b4044;
+    padding-top: 15px;
 }
 
-.events-title {
+.events-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .events-source {
-    font-size: 11px;
-    color: #5f6569;
+    font-size: 12px;
+    color: #73797d;
 }
 
 .event-list {
-    margin-top: 10px;
+    margin-top: 9px;
 }
 
 .event {
     display: grid;
-    grid-template-columns: 72px 1fr;
-    min-height: 31px;
+    grid-template-columns: 80px 1fr;
     align-items: center;
-    border-bottom: 1px solid #202428;
+    min-height: 34px;
+    border-bottom: 1px solid #24282b;
 }
 
 .event-time {
-    font-size: 13px;
-    color: #858b8f;
+    font-size: 14px;
+    color: #8b9195;
 }
 
 .event-name {
-    font-size: 15px;
+    font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .event-placeholder {
-    padding: 13px 0;
-    color: #62686c;
-    font-size: 14px;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #6f7579;
 }
 
-/* ---------- RECHTS ---------- */
+
+/* =========================
+   RECHTS
+   ========================= */
 
 .right {
-    border-left: 1px solid #3c4145;
-    padding-left: 45px;
+    border-left: 1px solid #4a4f53;
+    padding-left: 42px;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -198,81 +222,198 @@ body {
 
 .weather-location {
     font-size: 12px;
-    color: #62686c;
+    color: #777d81;
     letter-spacing: 1px;
 }
 
-/* ---------- JETZT ---------- */
+
+/* =========================
+   AKTUELLES WETTER
+   ========================= */
 
 .current-weather {
-    padding: 28px 0 25px;
+    padding: 21px 0 20px;
     display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 130px 1fr;
     align-items: center;
-    border-bottom: 1px solid #35393d;
 }
 
 .current-icon {
-    width: 92px;
-    height: 92px;
+    width: 105px;
+    height: 105px;
 }
 
 .current-temp {
-    font-size: 83px;
+    font-size: 94px;
     line-height: .9;
     font-weight: 700;
+    color: #fff;
 }
 
 .current-condition {
-    font-size: 21px;
-    margin-top: 10px;
+    font-size: 23px;
+    margin-top: 9px;
 }
 
 .current-sub {
-    font-size: 14px;
-    color: #7f8589;
-    margin-top: 7px;
+    font-size: 15px;
+    color: #8d9396;
+    margin-top: 6px;
 }
 
-/* ---------- HEUTE ---------- */
+
+/* =========================
+   WETTERWERTE
+   ========================= */
 
 .weather-details {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    padding: 22px 0;
-    border-bottom: 1px solid #35393d;
+    padding: 17px 0;
+    border-top: 1px solid #3b4044;
+    border-bottom: 1px solid #3b4044;
 }
 
 .detail {
     text-align: center;
+    border-right: 1px solid #292d30;
+}
+
+.detail:last-child {
+    border-right: 0;
 }
 
 .detail-label {
     font-size: 11px;
-    color: #6f7579;
-    margin-bottom: 7px;
+    color: #747a7e;
     text-transform: uppercase;
-    letter-spacing: .7px;
+    letter-spacing: .8px;
+    margin-bottom: 6px;
 }
 
 .detail-value {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
 }
 
-/* ---------- VORHERSAGE ---------- */
+
+/* =========================
+   SONNE
+   ========================= */
+
+.sun-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 15px 0;
+    border-bottom: 1px solid #3b4044;
+}
+
+.sun-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.sun-symbol {
+    width: 35px;
+    height: 35px;
+}
+
+.sun-label {
+    font-size: 11px;
+    color: #747a7e;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.sun-time {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+
+/* =========================
+   REGENVERLAUF
+   ========================= */
+
+.rain-section {
+    padding: 16px 0 15px;
+    border-bottom: 1px solid #3b4044;
+}
+
+.rain-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rain-caption {
+    font-size: 11px;
+    color: #686e72;
+}
+
+.rain-timeline {
+    height: 76px;
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.rain-column {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.rain-value {
+    font-size: 10px;
+    color: #aeb2b4;
+    margin-bottom: 3px;
+}
+
+.rain-bar-area {
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.rain-bar {
+    width: 55%;
+    min-height: 1px;
+    background: #b9bdbe;
+    border-radius: 2px 2px 0 0;
+}
+
+.rain-hour {
+    margin-top: 5px;
+    font-size: 10px;
+    color: #696f73;
+}
+
+
+/* =========================
+   VORHERSAGE
+   ========================= */
 
 .forecast-title {
-    margin-top: 24px;
+    margin-top: 17px;
 }
 
 .forecast {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
+    gap: 8px;
     align-items: center;
+    min-height: 150px;
 }
 
 .forecast-day {
@@ -280,197 +421,383 @@ body {
 }
 
 .forecast-name {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .forecast-icon {
-    width: 55px;
-    height: 55px;
-    margin: 14px auto;
+    width: 59px;
+    height: 59px;
+    margin: 10px auto;
 }
 
 .forecast-max {
-    font-size: 23px;
+    font-size: 24px;
     font-weight: 700;
 }
 
 .forecast-min {
-    color: #73797d;
+    color: #858b8f;
     font-size: 14px;
     margin-top: 3px;
 }
 
 .forecast-rain {
-    color: #969b9e;
+    color: #a0a5a8;
     font-size: 12px;
-    margin-top: 9px;
+    margin-top: 7px;
 }
 
 .updated {
     text-align: right;
-    color: #474c50;
+    color: #4f5559;
     font-size: 10px;
 }
 
-/* ---------- MONOCHROME WEATHER ICONS ---------- */
+
+/* =========================
+   SVG
+   ========================= */
 
 .weather-svg {
     width: 100%;
     height: 100%;
     fill: none;
-    stroke: #e5e7e7;
+    stroke: #e7e9e9;
     stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 .weather-svg .muted {
-    stroke: #7d8387;
+    stroke: #858b8f;
 }
 
 .weather-svg .rain {
-    stroke: #aeb3b5;
+    stroke: #b4b8ba;
 }
 
+
+/* =========================
+   TABLET
+   ========================= */
+
 @media(max-width:1000px) {
+
     .dashboard {
-        padding: 25px 30px;
+        padding: 24px 29px;
         gap: 28px;
     }
 
-    .time { font-size: 92px; }
-    .right { padding-left: 28px; }
-    .current-temp { font-size: 70px; }
+    .time {
+        font-size: 112px;
+    }
+
+    .right {
+        padding-left: 28px;
+    }
+
+    .current-temp {
+        font-size: 75px;
+    }
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="dashboard">
 
-<!-- LINKS -->
+
+<!-- ======================================
+     LINKS
+     ====================================== -->
 
 <section class="left">
 
-    <div class="topline">
-        <div class="location">Aachen</div>
-    </div>
+<div class="location">
+Aachen
+</div>
 
-    <div id="time" class="time">--:--</div>
-    <div id="date" class="date">...</div>
+<div id="time" class="time">
+--:--
+</div>
 
-    <div class="calendar-box">
+<div id="date" class="date">
+...
+</div>
 
-        <div class="calendar-header">
-            <div id="monthName" class="month-name"></div>
-            <div id="calendarYear" class="calendar-year"></div>
-        </div>
 
-        <div id="calendar" class="calendar-grid"></div>
+<div class="calendar-box">
 
-    </div>
+<div class="calendar-header">
 
-    <div class="events">
+<div id="monthName" class="month-name"></div>
 
-        <div class="events-title">
-            <div class="section-title">Nächste Termine</div>
-            <div class="events-source">iCloud + Google</div>
-        </div>
+<div id="calendarYear" class="calendar-year"></div>
 
-        <div id="eventList" class="event-list">
+</div>
 
-            <div class="event-placeholder">
-                Kalender noch nicht verbunden
-            </div>
+<div id="calendar" class="calendar-grid"></div>
 
-        </div>
+</div>
 
-    </div>
+
+<div class="events">
+
+<div class="events-header">
+
+<div class="section-title">
+Nächste Termine
+</div>
+
+<div class="events-source">
+iCloud + Google
+</div>
+
+</div>
+
+<div id="eventList" class="event-list">
+
+<div class="event-placeholder">
+Kalender noch nicht verbunden
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- RECHTS -->
+
+<!-- ======================================
+     RECHTS
+     ====================================== -->
 
 <section class="right">
 
-    <div class="weather-heading">
 
-        <div class="section-title">
-            Wetter
-        </div>
+<div class="weather-heading">
 
-        <div class="weather-location">
-            Aachen
-        </div>
+<div class="section-title">
+Wetter
+</div>
 
-    </div>
+<div class="weather-location">
+Aachen
+</div>
 
-
-    <div class="current-weather">
-
-        <div id="currentIcon" class="current-icon"></div>
-
-        <div>
-
-            <div class="current-temp">
-                <span id="temperature">--</span>°
-            </div>
-
-            <div id="condition" class="current-condition">
-                Wetter wird geladen
-            </div>
-
-            <div class="current-sub">
-                Gefühlt
-                <span id="feels">--</span>°
-                &nbsp;·&nbsp;
-                Wind
-                <span id="wind">--</span>
-                km/h
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 
-    <div class="weather-details">
+<div class="current-weather">
 
-        <div class="detail">
-            <div class="detail-label">Maximum</div>
-            <div class="detail-value"><span id="max">--</span>°</div>
-        </div>
+<div id="currentIcon" class="current-icon"></div>
 
-        <div class="detail">
-            <div class="detail-label">Minimum</div>
-            <div class="detail-value"><span id="min">--</span>°</div>
-        </div>
+<div>
 
-        <div class="detail">
-            <div class="detail-label">Regen</div>
-            <div class="detail-value"><span id="rain">--</span>%</div>
-        </div>
+<div class="current-temp">
+<span id="temperature">--</span>°
+</div>
 
-        <div class="detail">
-            <div class="detail-label">Wind</div>
-            <div class="detail-value"><span id="wind2">--</span></div>
-        </div>
+<div id="condition" class="current-condition">
+Wetter wird geladen
+</div>
 
-    </div>
+<div class="current-sub">
+
+Gefühlt
+<span id="feels">--</span>°
+
+&nbsp;·&nbsp;
+
+Wind
+<span id="wind">--</span>
+km/h
+
+</div>
+
+</div>
+
+</div>
 
 
-    <div class="section-title forecast-title">
-        Nächste Tage
-    </div>
+<div class="weather-details">
 
-    <div id="forecast" class="forecast"></div>
+<div class="detail">
 
-    <div id="updated" class="updated"></div>
+<div class="detail-label">
+Maximum
+</div>
+
+<div class="detail-value">
+<span id="max">--</span>°
+</div>
+
+</div>
+
+
+<div class="detail">
+
+<div class="detail-label">
+Minimum
+</div>
+
+<div class="detail-value">
+<span id="min">--</span>°
+</div>
+
+</div>
+
+
+<div class="detail">
+
+<div class="detail-label">
+Regen
+</div>
+
+<div class="detail-value">
+<span id="rain">--</span>%
+</div>
+
+</div>
+
+
+<div class="detail">
+
+<div class="detail-label">
+Wind
+</div>
+
+<div class="detail-value">
+<span id="wind2">--</span>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- SONNE -->
+
+<div class="sun-row">
+
+
+<div class="sun-item">
+
+<div class="sun-symbol">
+
+<svg class="weather-svg" viewBox="0 0 100 100">
+
+<path d="M15 67h70"/>
+
+<path d="M30 67a20 20 0 0 1 40 0"/>
+
+<path d="
+M50 20v13
+M20 48h13
+M67 48h13
+M29 28l9 9
+M71 28l-9 9
+"/>
+
+</svg>
+
+</div>
+
+<div>
+
+<div class="sun-label">
+Sonnenaufgang
+</div>
+
+<div id="sunrise" class="sun-time">
+--:--
+</div>
+
+</div>
+
+</div>
+
+
+<div class="sun-item">
+
+<div class="sun-symbol">
+
+<svg class="weather-svg" viewBox="0 0 100 100">
+
+<path d="M15 67h70"/>
+
+<path d="M30 67a20 20 0 0 1 40 0"/>
+
+<path d="
+M50 20v13
+M20 48h13
+M67 48h13
+M29 28l9 9
+M71 28l-9 9
+"/>
+
+</svg>
+
+</div>
+
+<div>
+
+<div class="sun-label">
+Sonnenuntergang
+</div>
+
+<div id="sunset" class="sun-time">
+--:--
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- REGENVERLAUF -->
+
+<div class="rain-section">
+
+<div class="rain-title-row">
+
+<div class="section-title">
+Regen heute
+</div>
+
+<div class="rain-caption">
+Wahrscheinlichkeit
+</div>
+
+</div>
+
+<div id="rainTimeline" class="rain-timeline"></div>
+
+</div>
+
+
+
+<!-- VORHERSAGE -->
+
+<div class="section-title forecast-title">
+Nächste Tage
+</div>
+
+<div id="forecast" class="forecast"></div>
+
+<div id="updated" class="updated"></div>
+
 
 </section>
 
@@ -479,9 +806,10 @@ body {
 
 <script>
 
-/* ==========================================
+
+/* =========================================
    UHR
-   ========================================== */
+   ========================================= */
 
 function updateClock() {
 
@@ -491,8 +819,8 @@ function updateClock() {
         now.toLocaleTimeString(
             "de-DE",
             {
-                hour: "2-digit",
-                minute: "2-digit"
+                hour:"2-digit",
+                minute:"2-digit"
             }
         );
 
@@ -500,30 +828,33 @@ function updateClock() {
         now.toLocaleDateString(
             "de-DE",
             {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
             }
         );
 }
 
 updateClock();
+
 setInterval(updateClock,1000);
 
 
-/* ==========================================
+
+/* =========================================
    MONATSKALENDER
-   ========================================== */
+   ========================================= */
 
 function buildCalendar() {
 
     var today = new Date();
 
     var year = today.getFullYear();
+
     var month = today.getMonth();
 
-    var monthNames = [
+    var months = [
         "Januar",
         "Februar",
         "März",
@@ -539,7 +870,7 @@ function buildCalendar() {
     ];
 
     document.getElementById("monthName").textContent =
-        monthNames[month];
+        months[month];
 
     document.getElementById("calendarYear").textContent =
         year;
@@ -552,7 +883,7 @@ function buildCalendar() {
     var weekdays =
         ["MO","DI","MI","DO","FR","SA","SO"];
 
-    for (var w = 0; w < weekdays.length; w++) {
+    for (var w=0; w<7; w++) {
 
         calendar.innerHTML +=
             '<div class="weekday">' +
@@ -560,11 +891,11 @@ function buildCalendar() {
             '</div>';
     }
 
-    var firstDay =
+    var first =
         new Date(year,month,1);
 
     var start =
-        firstDay.getDay();
+        first.getDay();
 
     if (start === 0)
         start = 7;
@@ -574,26 +905,26 @@ function buildCalendar() {
     var days =
         new Date(
             year,
-            month + 1,
+            month+1,
             0
         ).getDate();
 
-    var previousDays =
+    var previous =
         new Date(
             year,
             month,
             0
         ).getDate();
 
-    for (var p = start - 1; p >= 0; p--) {
+    for (var p=start-1; p>=0; p--) {
 
         calendar.innerHTML +=
             '<div class="calendar-day other">' +
-            (previousDays - p) +
+            (previous-p) +
             '</div>';
     }
 
-    for (var d = 1; d <= days; d++) {
+    for (var d=1; d<=days; d++) {
 
         var css =
             "calendar-day";
@@ -609,18 +940,18 @@ function buildCalendar() {
             '</div>';
     }
 
-    var cells =
+    var used =
         start + days;
 
     var remainder =
-        cells % 7;
+        used % 7;
 
     if (remainder !== 0) {
 
         var next =
             7 - remainder;
 
-        for (var n = 1; n <= next; n++) {
+        for (var n=1; n<=next; n++) {
 
             calendar.innerHTML +=
                 '<div class="calendar-day other">' +
@@ -633,9 +964,10 @@ function buildCalendar() {
 buildCalendar();
 
 
-/* ==========================================
-   MONOCHROME WETTERICONS
-   ========================================== */
+
+/* =========================================
+   WETTER ICONS
+   ========================================= */
 
 function sunSVG() {
 
@@ -685,16 +1017,9 @@ function partlyCloudySVG() {
 return `
 <svg class="weather-svg" viewBox="0 0 100 100">
 
-<circle
-class="muted"
-cx="35"
-cy="34"
-r="15"
-/>
+<circle class="muted" cx="35" cy="34" r="15"/>
 
-<path
-class="muted"
-d="
+<path class="muted" d="
 M35 7v9
 M35 52v8
 M8 34h9
@@ -702,8 +1027,7 @@ M53 34h9
 M16 15l7 7
 M48 47l7 7
 M55 15l-7 7
-"
-/>
+"/>
 
 <path d="
 M29 75
@@ -850,21 +1174,176 @@ function weatherInfo(code) {
 }
 
 
-/* ==========================================
-   WETTER
-   ========================================== */
+
+/* =========================================
+   ZEIT HILFSFUNKTION
+   ========================================= */
+
+function shortTime(iso) {
+
+    if (!iso)
+        return "--:--";
+
+    var parts =
+        iso.split("T");
+
+    if (parts.length < 2)
+        return "--:--";
+
+    return parts[1].substring(0,5);
+}
+
 
 function shortDay(dateString) {
 
     var date =
-        new Date(dateString + "T12:00:00");
+        new Date(
+            dateString +
+            "T12:00:00"
+        );
 
     return date.toLocaleDateString(
         "de-DE",
-        {weekday:"short"}
+        {
+            weekday:"short"
+        }
     );
 }
 
+
+
+/* =========================================
+   REGEN TIMELINE
+   ========================================= */
+
+function buildRainTimeline(data) {
+
+    var container =
+        document.getElementById(
+            "rainTimeline"
+        );
+
+    container.innerHTML = "";
+
+    var today =
+        new Date();
+
+    var currentHour =
+        today.getHours();
+
+    /*
+       Ab aktueller Stunde,
+       dann jeweils +2 Stunden.
+       Maximal bis Tagesende.
+    */
+
+    var indexes = [];
+
+    for (
+        var h=currentHour;
+        h<24;
+        h+=2
+    ) {
+
+        indexes.push(h);
+    }
+
+    /*
+       Bei spätem Abend sind sonst
+       zu wenige Werte sichtbar.
+
+       Dann zeigen wir zusätzlich
+       den frühen Morgen morgen.
+    */
+
+    if (indexes.length < 6) {
+
+        var needed =
+            6 - indexes.length;
+
+        for (
+            var n=0;
+            n<needed;
+            n++
+        ) {
+
+            indexes.push(
+                24 + n*2
+            );
+        }
+    }
+
+
+    for (
+        var i=0;
+        i<indexes.length;
+        i++
+    ) {
+
+        var index =
+            indexes[i];
+
+        if (
+            index >=
+            data.hourly.time.length
+        )
+            break;
+
+        var probability =
+            data.hourly
+                .precipitation_probability[index];
+
+        if (
+            probability === null ||
+            probability === undefined
+        )
+            probability = 0;
+
+
+        var hour =
+            data.hourly
+                .time[index]
+                .split("T")[1]
+                .substring(0,2);
+
+
+        var height =
+            Math.max(
+                2,
+                probability * 0.35
+            );
+
+
+        container.innerHTML +=
+
+        '<div class="rain-column">' +
+
+            '<div class="rain-value">' +
+            probability +
+            '%</div>' +
+
+            '<div class="rain-bar-area">' +
+
+                '<div class="rain-bar" ' +
+                'style="height:' +
+                height +
+                'px"></div>' +
+
+            '</div>' +
+
+            '<div class="rain-hour">' +
+            hour +
+            ' Uhr</div>' +
+
+        '</div>';
+    }
+}
+
+
+
+/* =========================================
+   WETTER LADEN
+   ========================================= */
 
 function loadWeather() {
 
@@ -873,6 +1352,7 @@ function loadWeather() {
     "https://api.open-meteo.com/v1/forecast" +
 
     "?latitude=50.7753" +
+
     "&longitude=6.0839" +
 
     "&current=" +
@@ -881,11 +1361,16 @@ function loadWeather() {
     "weather_code," +
     "wind_speed_10m" +
 
+    "&hourly=" +
+    "precipitation_probability" +
+
     "&daily=" +
     "weather_code," +
     "temperature_2m_max," +
     "temperature_2m_min," +
-    "precipitation_probability_max" +
+    "precipitation_probability_max," +
+    "sunrise," +
+    "sunset" +
 
     "&timezone=Europe%2FBerlin" +
 
@@ -904,61 +1389,141 @@ function loadWeather() {
 
     .then(function(data) {
 
+
         var current =
             weatherInfo(
                 data.current.weather_code
             );
 
-        document.getElementById("currentIcon").innerHTML =
+
+        document.getElementById(
+            "currentIcon"
+        ).innerHTML =
             current[0];
 
-        document.getElementById("condition").textContent =
+
+        document.getElementById(
+            "condition"
+        ).textContent =
             current[1];
 
-        document.getElementById("temperature").textContent =
-            Math.round(data.current.temperature_2m);
 
-        document.getElementById("feels").textContent =
-            Math.round(data.current.apparent_temperature);
+        document.getElementById(
+            "temperature"
+        ).textContent =
+            Math.round(
+                data.current.temperature_2m
+            );
+
+
+        document.getElementById(
+            "feels"
+        ).textContent =
+            Math.round(
+                data.current.apparent_temperature
+            );
+
 
         var wind =
-            Math.round(data.current.wind_speed_10m);
+            Math.round(
+                data.current.wind_speed_10m
+            );
 
-        document.getElementById("wind").textContent =
+
+        document.getElementById(
+            "wind"
+        ).textContent =
             wind;
 
-        document.getElementById("wind2").textContent =
+
+        document.getElementById(
+            "wind2"
+        ).textContent =
             wind + " km/h";
 
-        document.getElementById("max").textContent =
-            Math.round(data.daily.temperature_2m_max[0]);
 
-        document.getElementById("min").textContent =
-            Math.round(data.daily.temperature_2m_min[0]);
+        document.getElementById(
+            "max"
+        ).textContent =
+            Math.round(
+                data.daily.temperature_2m_max[0]
+            );
 
-        document.getElementById("rain").textContent =
-            data.daily.precipitation_probability_max[0];
 
+        document.getElementById(
+            "min"
+        ).textContent =
+            Math.round(
+                data.daily.temperature_2m_min[0]
+            );
+
+
+        document.getElementById(
+            "rain"
+        ).textContent =
+            data.daily
+                .precipitation_probability_max[0];
+
+
+        /*
+           SONNENAUFGANG / UNTERGANG
+        */
+
+        document.getElementById(
+            "sunrise"
+        ).textContent =
+            shortTime(
+                data.daily.sunrise[0]
+            );
+
+
+        document.getElementById(
+            "sunset"
+        ).textContent =
+            shortTime(
+                data.daily.sunset[0]
+            );
+
+
+        /*
+           REGENVERLAUF
+        */
+
+        buildRainTimeline(data);
+
+
+        /*
+           VORHERSAGE
+        */
 
         var forecast =
-            document.getElementById("forecast");
+            document.getElementById(
+                "forecast"
+            );
 
         forecast.innerHTML = "";
 
 
-        for (var i = 1; i < 5; i++) {
+        for (
+            var i=1;
+            i<5;
+            i++
+        ) {
 
             var weather =
                 weatherInfo(
                     data.daily.weather_code[i]
                 );
 
+
             forecast.innerHTML +=
 
             '<div class="forecast-day">' +
 
                 '<div class="forecast-name">' +
-                shortDay(data.daily.time[i]) +
+                shortDay(
+                    data.daily.time[i]
+                ) +
                 '</div>' +
 
                 '<div class="forecast-icon">' +
@@ -978,31 +1543,40 @@ function loadWeather() {
                 '° min</div>' +
 
                 '<div class="forecast-rain">' +
-                data.daily.precipitation_probability_max[i] +
+                data.daily
+                    .precipitation_probability_max[i] +
                 '% Regen</div>' +
 
             '</div>';
         }
 
 
-        document.getElementById("updated").textContent =
+        document.getElementById(
+            "updated"
+        ).textContent =
 
         "Aktualisiert " +
 
-        new Date().toLocaleTimeString(
-            "de-DE",
-            {
-                hour:"2-digit",
-                minute:"2-digit"
-            }
-        );
+        new Date()
+            .toLocaleTimeString(
+                "de-DE",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            );
 
     })
 
-    .catch(function() {
 
-        document.getElementById("condition").textContent =
+    .catch(function(error) {
+
+        document.getElementById(
+            "condition"
+        ).textContent =
             "Wetter nicht verfügbar";
+
+        console.log(error);
 
     });
 }
@@ -1016,29 +1590,31 @@ setInterval(
 );
 
 
-/* ==========================================
-   KALENDER-SCHNITTSTELLE
 
-   Noch absichtlich deaktiviert.
+/* =========================================
+   KALENDER
 
-   Später werden hier zusammengeführt:
+   Bleibt vorbereitet.
+   Später:
+   Google + iCloud Geburtstage.
 
-   1. Google Kalender
-   2. iCloud Geburtstage
-
-   KEINE privaten URLs oder Passwörter
-   direkt in diese öffentliche Datei schreiben.
-   ========================================== */
+   Keine privaten URLs hier eintragen.
+   ========================================= */
 
 function displayEvents(events) {
 
     var list =
-        document.getElementById("eventList");
+        document.getElementById(
+            "eventList"
+        );
 
     list.innerHTML = "";
 
 
-    if (!events || events.length === 0) {
+    if (
+        !events ||
+        events.length === 0
+    ) {
 
         list.innerHTML =
             '<div class="event-placeholder">' +
@@ -1050,8 +1626,8 @@ function displayEvents(events) {
 
 
     for (
-        var i = 0;
-        i < Math.min(events.length,4);
+        var i=0;
+        i<Math.min(events.length,4);
         i++
     ) {
 
