@@ -3,118 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Aachen</title>
+<title>Dashboard</title>
 
 <style>
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  height: 100vh;
-  background: #f4f1e8;
-  color: #181818;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f0e8;
+    color: #171717;
+    overflow: hidden;
 }
 
 .dashboard {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 56% 44%;
-  padding: 55px 70px;
+    height: 100vh;
+    padding: 45px 60px;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    gap: 55px;
 }
+
+/* LEFT */
 
 .left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-right: 2px solid #222;
-  padding-right: 60px;
-}
-
-.date {
-  font-size: 32px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 5px;
-}
-
-.time {
-  font-size: 170px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -8px;
+    display: flex;
+    flex-direction: column;
 }
 
 .location {
-  margin-top: 35px;
-  font-size: 28px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 }
 
-.right {
-  padding-left: 65px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.time {
+    font-size: 145px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -7px;
+    margin-top: 35px;
 }
 
-.weather-main {
-  display: flex;
-  align-items: center;
-  gap: 35px;
+.date {
+    font-size: 31px;
+    margin-top: 15px;
 }
 
-.icon {
-  font-size: 90px;
+.weather-now {
+    margin-top: auto;
+    padding-top: 30px;
+    border-top: 2px solid #1b1b1b;
+}
+
+.now-row {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.weather-icon {
+    font-size: 68px;
+    width: 85px;
+    text-align: center;
 }
 
 .temperature {
-  font-size: 105px;
-  font-weight: 700;
-  line-height: 1;
+    font-size: 72px;
+    font-weight: bold;
 }
 
 .condition {
-  font-size: 30px;
-  margin-top: 15px;
+    font-size: 25px;
+    margin-top: 8px;
 }
 
-.divider {
-  border-top: 2px solid #222;
-  margin: 38px 0;
+.feels {
+    font-size: 20px;
+    opacity: .65;
+    margin-top: 5px;
 }
 
-.details {
-  font-size: 27px;
-  line-height: 1.8;
+/* RIGHT */
+
+.right {
+    border-left: 2px solid #1b1b1b;
+    padding-left: 55px;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    font-size: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.today-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 40px;
+}
+
+.metric {
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 15px;
+}
+
+.metric-label {
+    font-size: 17px;
+    opacity: .6;
+    margin-bottom: 5px;
+}
+
+.metric-value {
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.forecast-title {
+    margin-top: 45px;
 }
 
 .forecast {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 35px;
-  font-size: 23px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    flex: 1;
 }
 
 .day {
-  text-align: center;
+    text-align: center;
+    padding: 18px 8px;
+}
+
+.day-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.day-icon {
+    font-size: 43px;
+    margin: 16px 0;
 }
 
 .day-temp {
-  font-weight: bold;
-  margin-top: 8px;
+    font-size: 25px;
+    font-weight: bold;
 }
 
-.status {
-  position: absolute;
-  bottom: 18px;
-  right: 30px;
-  font-size: 14px;
-  opacity: .45;
+.day-min {
+    font-size: 18px;
+    opacity: .55;
+    margin-top: 4px;
+}
+
+.day-rain {
+    font-size: 17px;
+    margin-top: 12px;
+}
+
+.footer {
+    text-align: right;
+    font-size: 13px;
+    opacity: .4;
+    margin-top: 8px;
+}
+
+@media(max-width:1000px) {
+    .dashboard {
+        padding: 30px 35px;
+        gap: 30px;
+    }
+
+    .time { font-size: 115px; }
+    .right { padding-left: 30px; }
 }
 </style>
 </head>
@@ -123,179 +195,263 @@ body {
 
 <div class="dashboard">
 
-  <div class="left">
-    <div class="date" id="date">...</div>
-    <div class="time" id="time">--:--</div>
+<section class="left">
+
     <div class="location">Aachen</div>
-  </div>
 
-  <div class="right">
+    <div id="time" class="time">--:--</div>
+    <div id="date" class="date">...</div>
 
-    <div class="weather-main">
-      <div class="icon" id="icon">☁</div>
-      <div>
-        <div class="temperature">
-          <span id="temperature">--</span>°
+    <div class="weather-now">
+
+        <div class="heading">Jetzt</div>
+
+        <div class="now-row">
+
+            <div id="currentIcon" class="weather-icon">·</div>
+
+            <div>
+                <div class="temperature">
+                    <span id="temperature">--</span>°
+                </div>
+
+                <div id="condition" class="condition">
+                    Wetter wird geladen
+                </div>
+
+                <div class="feels">
+                    Gefühlt <span id="feels">--</span>°
+                </div>
+            </div>
+
         </div>
-        <div class="condition" id="condition">
-          Wetter wird geladen
-        </div>
-      </div>
+
     </div>
 
-    <div class="divider"></div>
+</section>
 
-    <div class="details">
-      Heute:
-      <strong>
-        <span id="min">--</span>° /
-        <span id="max">--</span>°
-      </strong>
-      <br>
-      Regenwahrscheinlichkeit:
-      <strong><span id="rain">--</span>%</strong>
+
+<section class="right">
+
+    <div class="heading">Heute</div>
+
+    <div class="today-grid">
+
+        <div class="metric">
+            <div class="metric-label">Höchsttemperatur</div>
+            <div class="metric-value"><span id="max">--</span>°</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Tiefsttemperatur</div>
+            <div class="metric-value"><span id="min">--</span>°</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Regenwahrscheinlichkeit</div>
+            <div class="metric-value"><span id="rain">--</span>%</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Wind</div>
+            <div class="metric-value"><span id="wind">--</span> km/h</div>
+        </div>
+
     </div>
 
-    <div class="forecast" id="forecast"></div>
+    <div class="heading forecast-title">Die nächsten Tage</div>
 
-  </div>
+    <div id="forecast" class="forecast"></div>
+
+    <div id="updated" class="footer"></div>
+
+</section>
 
 </div>
 
-<div class="status" id="status"></div>
 
 <script>
 
 function updateClock() {
 
-  const now = new Date();
+    var now = new Date();
 
-  document.getElementById("time").textContent =
-    now.toLocaleTimeString("de-DE", {
-      hour: "2-digit",
-      minute: "2-digit"
-    });
+    document.getElementById("time").textContent =
+        now.toLocaleTimeString("de-DE", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
 
-  document.getElementById("date").textContent =
-    now.toLocaleDateString("de-DE", {
-      weekday: "long",
-      day: "numeric",
-      month: "long"
-    });
+    document.getElementById("date").textContent =
+        now.toLocaleDateString("de-DE", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
 }
 
-setInterval(updateClock, 1000);
 updateClock();
+setInterval(updateClock,1000);
 
 
 function weatherInfo(code) {
 
-  if (code === 0)
-    return ["☀", "Klar"];
+    if (code === 0)
+        return ["☀️","Klar"];
 
-  if ([1,2].includes(code))
-    return ["🌤", "Leicht bewölkt"];
+    if (code === 1)
+        return ["🌤️","Überwiegend klar"];
 
-  if (code === 3)
-    return ["☁", "Bewölkt"];
+    if (code === 2)
+        return ["⛅","Teilweise bewölkt"];
 
-  if ([45,48].includes(code))
-    return ["☁", "Nebel"];
+    if (code === 3)
+        return ["☁️","Bewölkt"];
 
-  if ([51,53,55,56,57].includes(code))
-    return ["🌦", "Nieselregen"];
+    if (code === 45 || code === 48)
+        return ["🌫️","Nebel"];
 
-  if ([61,63,65,66,67,80,81,82].includes(code))
-    return ["🌧", "Regen"];
+    if ([51,53,55,56,57].indexOf(code) !== -1)
+        return ["🌦️","Nieselregen"];
 
-  if ([71,73,75,77,85,86].includes(code))
-    return ["❄", "Schnee"];
+    if ([61,63,65,66,67].indexOf(code) !== -1)
+        return ["🌧️","Regen"];
 
-  if ([95,96,99].includes(code))
-    return ["⛈", "Gewitter"];
+    if ([80,81,82].indexOf(code) !== -1)
+        return ["🌦️","Regenschauer"];
 
-  return ["☁", "Wetter"];
+    if ([71,73,75,77,85,86].indexOf(code) !== -1)
+        return ["❄️","Schnee"];
+
+    if ([95,96,99].indexOf(code) !== -1)
+        return ["⛈️","Gewitter"];
+
+    return ["☁️","Wetter"];
 }
 
 
-async function loadWeather() {
+function shortDay(dateString) {
 
-  const url =
-    "https://api.open-meteo.com/v1/forecast" +
-    "?latitude=50.7753" +
-    "&longitude=6.0839" +
-    "&current=temperature_2m,weather_code" +
-    "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
-    "&timezone=Europe%2FBerlin" +
-    "&forecast_days=5";
+    var d = new Date(dateString + "T12:00:00");
 
-  try {
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    document.getElementById("temperature").textContent =
-      Math.round(data.current.temperature_2m);
-
-    const info = weatherInfo(data.current.weather_code);
-
-    document.getElementById("icon").textContent = info[0];
-    document.getElementById("condition").textContent = info[1];
-
-    document.getElementById("min").textContent =
-      Math.round(data.daily.temperature_2m_min[0]);
-
-    document.getElementById("max").textContent =
-      Math.round(data.daily.temperature_2m_max[0]);
-
-    document.getElementById("rain").textContent =
-      data.daily.precipitation_probability_max[0];
-
-    const forecast = document.getElementById("forecast");
-    forecast.innerHTML = "";
-
-    for (let i = 1; i < 5; i++) {
-
-      const date = new Date(data.daily.time[i]);
-
-      const dayName =
-        date.toLocaleDateString("de-DE", {
-          weekday: "short"
-        });
-
-      const weather =
-        weatherInfo(data.daily.weather_code[i]);
-
-      forecast.innerHTML +=
-        '<div class="day">' +
-        '<div>' + dayName + '</div>' +
-        '<div style="font-size:34px">' + weather[0] + '</div>' +
-        '<div class="day-temp">' +
-        Math.round(data.daily.temperature_2m_max[i]) + '°' +
-        '</div>' +
-        '</div>';
-    }
-
-    document.getElementById("status").textContent =
-      "Wetter aktualisiert " +
-      new Date().toLocaleTimeString("de-DE", {
-        hour:"2-digit",
-        minute:"2-digit"
-      });
-
-  }
-
-  catch(error) {
-
-    document.getElementById("condition").textContent =
-      "Wetter nicht verfügbar";
-  }
+    return d.toLocaleDateString("de-DE", {
+        weekday:"short"
+    });
 }
+
+
+function loadWeather() {
+
+    var url =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=50.7753" +
+        "&longitude=6.0839" +
+        "&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m" +
+        "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
+        "&timezone=Europe%2FBerlin" +
+        "&forecast_days=5";
+
+    fetch(url)
+
+    .then(function(response) {
+
+        if (!response.ok)
+            throw new Error("HTTP " + response.status);
+
+        return response.json();
+    })
+
+    .then(function(data) {
+
+        var info = weatherInfo(data.current.weather_code);
+
+        document.getElementById("temperature").textContent =
+            Math.round(data.current.temperature_2m);
+
+        document.getElementById("feels").textContent =
+            Math.round(data.current.apparent_temperature);
+
+        document.getElementById("currentIcon").textContent =
+            info[0];
+
+        document.getElementById("condition").textContent =
+            info[1];
+
+        document.getElementById("wind").textContent =
+            Math.round(data.current.wind_speed_10m);
+
+        document.getElementById("max").textContent =
+            Math.round(data.daily.temperature_2m_max[0]);
+
+        document.getElementById("min").textContent =
+            Math.round(data.daily.temperature_2m_min[0]);
+
+        document.getElementById("rain").textContent =
+            data.daily.precipitation_probability_max[0];
+
+        var forecast =
+            document.getElementById("forecast");
+
+        forecast.innerHTML = "";
+
+        for (var i = 1; i < 5; i++) {
+
+            var dayWeather =
+                weatherInfo(data.daily.weather_code[i]);
+
+            forecast.innerHTML +=
+
+                '<div class="day">' +
+
+                    '<div class="day-name">' +
+                        shortDay(data.daily.time[i]) +
+                    '</div>' +
+
+                    '<div class="day-icon">' +
+                        dayWeather[0] +
+                    '</div>' +
+
+                    '<div class="day-temp">' +
+                        Math.round(data.daily.temperature_2m_max[i]) +
+                        '°' +
+                    '</div>' +
+
+                    '<div class="day-min">' +
+                        Math.round(data.daily.temperature_2m_min[i]) +
+                        '° min' +
+                    '</div>' +
+
+                    '<div class="day-rain">☂ ' +
+                        data.daily.precipitation_probability_max[i] +
+                        '%</div>' +
+
+                '</div>';
+        }
+
+        document.getElementById("updated").textContent =
+            "Wetter aktualisiert " +
+            new Date().toLocaleTimeString("de-DE", {
+                hour:"2-digit",
+                minute:"2-digit"
+            });
+
+    })
+
+    .catch(function(error) {
+
+        document.getElementById("condition").textContent =
+            "Wetterdaten nicht verfügbar";
+
+        console.log(error);
+    });
+}
+
 
 loadWeather();
 
-/* Wetter alle 15 Minuten aktualisieren */
-setInterval(loadWeather, 900000);
+/* alle 15 Minuten */
+setInterval(loadWeather,900000);
 
 </script>
 
